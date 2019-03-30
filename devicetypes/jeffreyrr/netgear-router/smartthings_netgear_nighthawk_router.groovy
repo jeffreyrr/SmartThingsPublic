@@ -631,12 +631,14 @@ private gwgetall() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetGuestAccessEnabled")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -644,15 +646,14 @@ private gwgetall() {
 <M1:GetGuestAccessEnabled xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:GetGuestAccessEnabled>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 
@@ -661,8 +662,9 @@ private gwgetall() {
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Get5GGuestAccessEnabled")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -670,15 +672,14 @@ private gwgetall() {
 <M1:Get5GGuestAccessEnabled xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:Get5GGuestAccessEnabled>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -687,12 +688,14 @@ private getattacheddev() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:DeviceInfo:1#GetAttachDevice")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="utf-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -703,15 +706,14 @@ private getattacheddev() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -720,12 +722,14 @@ private getstats() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:DeviceConfig:1#GetTrafficMeterStatistics")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="utf-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -735,15 +739,14 @@ private getstats() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -752,12 +755,14 @@ private wifi2stat() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -767,30 +772,30 @@ private wifi2stat() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
-
 }
 
 private wifi5stat() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Get5GInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -800,31 +805,31 @@ private wifi5stat() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
-
 }
 
 private wifi2enable() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#SetEnable")
     //headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -835,31 +840,31 @@ private wifi2enable() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
-
 }
 
 private wifi5enable() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Set5GEnable")
     //headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -870,18 +875,16 @@ private wifi5enable() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
-
 }
 
 
@@ -889,13 +892,15 @@ private wifi2disable() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#SetEnable")
     //headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -906,15 +911,14 @@ private wifi2disable() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 
@@ -924,13 +928,15 @@ private wifi5disable() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Set5GEnable")
     //headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -941,30 +947,30 @@ private wifi5disable() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
-
 }
 
 private rebootoff() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:DeviceConfig:1#Reboot")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="utf-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -974,15 +980,14 @@ private rebootoff() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -991,12 +996,14 @@ private gwoff() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#SetGuestAccessEnabled")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -1007,30 +1014,30 @@ private gwoff() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
-
 }
 
 private gwon() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#SetGuestAccessEnabled2")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -1040,15 +1047,14 @@ private gwon() {
 </M1:SetGuestAccessEnabled2>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -1058,12 +1064,14 @@ private gwget() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetGuestAccessEnabled")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -1071,15 +1079,14 @@ private gwget() {
 <M1:GetGuestAccessEnabled xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:GetGuestAccessEnabled>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -1089,12 +1096,14 @@ private gwinfo() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#GetGuestAccessNetworkInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -1102,15 +1111,14 @@ private gwinfo() {
 <M1:GetGuestAccessNetworkInfo xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:GetGuestAccessNetworkInfo>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -1119,12 +1127,14 @@ private gwoff5() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Set5GGuestAccessEnabled")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?><SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
 </SOAP-ENV:Header>
@@ -1135,30 +1145,30 @@ private gwoff5() {
 </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
-
 }
 
 private gwon5() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Set5GGuestAccessEnabled2")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -1168,15 +1178,14 @@ private gwon5() {
 </M1:Set5GGuestAccessEnabled2>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -1186,12 +1195,14 @@ private gwget5() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Get5GGuestAccessEnabled")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -1199,15 +1210,14 @@ private gwget5() {
 <M1:Get5GGuestAccessEnabled xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:Get5GGuestAccessEnabled>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
@@ -1217,12 +1227,14 @@ private gwinfo5() {
     def host = "$ip:$port"
     def method = "POST"
     def path = "/soap/server_sa/"
+
     def headers = [:]
     headers.put("HOST", "$host")
     headers.put("SOAPAction", "urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Get5GGuestAccessNetworkInfo")
     headers.put("content-type", "text/xml;charset=utf-8")
+
     try {
-    def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        def body="""<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
 <SOAP-ENV:Header>
 <SessionID>58DEE6006A88A967E89A</SessionID>
@@ -1230,70 +1242,69 @@ private gwinfo5() {
 <M1:Get5GGuestAccessNetworkInfo xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:Get5GGuestAccessNetworkInfo>
 </SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 
-    def hubAction = new physicalgraph.device.HubAction(
-        method: method,
-        path: path,
-        headers: headers,
-        body: body
+        def hubAction = new physicalgraph.device.HubAction(
+            method: method,
+            path: path,
+            headers: headers,
+            body: body
         )
-    hubAction
-    }
-    catch (Exception e) {
+        hubAction
+    } catch (Exception e) {
         log.debug "Hit Exception $e on $hubAction"
     }
 }
 
 private authrouter() {
-def hubaction
+    def hubaction
     def host = "$ip:$port"
-            try {
-    hubaction = new physicalgraph.device.HubSoapAction(
-    path:    "/soap/server_sa/",
-    urn:     'urn:NETGEAR-ROUTER:service:ParentalControl:1',
-    action:  "Authenticate",
-    body:    ["NewPassword":"$password", "NewUsername":"$username" ],
-    headers: [Host:"$host", CONNECTION: "close"]
-    )
-    }
-    catch (Exception e) {
+
+    try {
+        hubaction = new physicalgraph.device.HubSoapAction(
+            path:    "/soap/server_sa/",
+            urn:     'urn:NETGEAR-ROUTER:service:ParentalControl:1',
+            action:  "Authenticate",
+            body:    ["NewPassword":"$password", "NewUsername":"$username" ],
+            headers: [Host:"$host", CONNECTION: "close"]
+        )
+    } catch (Exception e) {
         log.debug e
     }
     return hubaction
 }
 
 private configStarted() {
-state.lastcmd = "configStarted"
-def hubaction
+    state.lastcmd = "configStarted"
+    def hubaction
     def host = "$ip:$port"
-            try {
-       hubaction = new physicalgraph.device.HubSoapAction(
-    path:    "/soap/server_sa/",
-    urn:     'urn:NETGEAR-ROUTER:service:DeviceConfig:1',
-    action:  "ConfigurationStarted",
-    body:    ["NewSessionID":"58DEE6006A88A967E89A" ],
-    headers: [Host:"$host", CONNECTION: "keep-alive"]
-    )
-    }
-    catch (Exception e) {
+
+    try {
+        hubaction = new physicalgraph.device.HubSoapAction(
+            path:    "/soap/server_sa/",
+            urn:     'urn:NETGEAR-ROUTER:service:DeviceConfig:1',
+            action:  "ConfigurationStarted",
+            body:    ["NewSessionID":"58DEE6006A88A967E89A" ],
+            headers: [Host:"$host", CONNECTION: "keep-alive"]
+        )
+    } catch (Exception e) {
         log.debug e
     }
     return hubaction
 }
 
 private configFinished() {
-state.lastcmd = "configFinished"
-def hubaction
+    state.lastcmd = "configFinished"
+    def hubaction
     def host = "$ip:$port"
-            try {
-       hubaction = new physicalgraph.device.HubSoapAction(
-    path:    "/soap/server_sa/",
-    urn:     'urn:NETGEAR-ROUTER:service:DeviceConfig:1',
-    action:  "ConfigurationFinished",
-    body:    ["NewStatus":"ChangesApplied" ],
-    headers: [Host:"$host", CONNECTION: "keep-alive"]
-    )
-    }
-    catch (Exception e) {
+
+    try {
+        hubaction = new physicalgraph.device.HubSoapAction(
+            path:    "/soap/server_sa/",
+            urn:     'urn:NETGEAR-ROUTER:service:DeviceConfig:1',
+            action:  "ConfigurationFinished",
+            body:    ["NewStatus":"ChangesApplied" ],
+            headers: [Host:"$host", CONNECTION: "keep-alive"]
+        )
+    } catch (Exception e) {
         log.debug e
     }
     return hubaction
@@ -1307,7 +1318,6 @@ private String convertIPtoHex(ipAddress) {
     String hex = ipAddress.tokenize( '.' ).collect {  String.format( '%02x', it.toInteger() ) }.join()
     //log.debug "IP address entered is $ipAddress and the converted hex code is $hex"
     return hex
-
 }
 
 private String convertPortToHex(port) {
@@ -1315,9 +1325,6 @@ private String convertPortToHex(port) {
     //log.debug hexport
     return hexport
 }
-
-
-//bunlar lazım mı
 
 // gets the address of the Hub
 private getCallBackAddress() {
@@ -1352,52 +1359,50 @@ private String convertHexToIP(hex) {
 }
 
 
-def genGraph()
-{
+def genGraph() {
     def dl ="t:"
     def ul ="t:"
     def tt ="t:"
-    for (int i = 0; i <  143; i++){
-    dl = dl + state.listdl[i] + ","
+    for (int i = 0; i < 143; i++){
+        dl = dl + state.listdl[i] + ","
     }
+
     dl = dl + state.listdl[143] + "|"
 
-    for (int i = 0; i <  143; i++){
-    dl = dl + state.listul[i] + ","
+    for (int i = 0; i < 143; i++){
+        dl = dl + state.listul[i] + ","
     }
+
     dl = dl + state.listul[143]
 
     def maxx = Math.round(state.listdl.max())
 
     def aralik = maxx/5
 
+   def podParams = [
+      //uri: "https://chart.googleapis.com",
+      uri: "https://image-charts.com",
+      path: "/chart",
+      query: [cht: "lc", chd: dl, chs: "400x250", chof: "gif", chxt: "x,y", chco: "00FF00,0000FF", chtt: "Traffic", chts:"AAAAAA,15", chxr:"0,0,144,1|1,0,"+maxx+","+aralik, ],
+      contentType: 'image/gif'
+    ]
 
-       def podParams = [
-          //uri: "https://chart.googleapis.com",
-          uri: "https://image-charts.com",
-          path: "/chart",
-          query: [cht: "lc", chd: dl, chs: "400x250", chof: "gif", chxt: "x,y", chco: "00FF00,0000FF", chtt: "Traffic", chts:"AAAAAA,15", chxr:"0,0,144,1|1,0,"+maxx+","+aralik, ],
-          contentType: 'image/gif'
-        ]
-        httpGet(podParams) { resp ->
-            //log.debug resp.data
-            saveImage(resp.data)
-        }
-        //log.debug "Created new graph"
+    httpGet(podParams) { resp ->
+        //log.debug resp.data
+        saveImage(resp.data)
+    }
+    //log.debug "Created new graph"
 }
 
 def saveImage(image) {
     //log.trace "Saving image to S3"
-
     // Send the image to an App who wants to consume it via an event as a Base64 String
     def bytes = image.buf
     //log.debug "JPEG Data Size: ${bytes.size()}"
     String str = bytes.encodeBase64()
     sendEvent(name: "imageDataJpeg", value: str, displayed: false, isStateChange: true)
-
     // Now save it to the S3 cloud, do this in the end since it removes the data from the object leaving it empty
     storeImage(getPictureName(), image)
-
     return null
 }
 
