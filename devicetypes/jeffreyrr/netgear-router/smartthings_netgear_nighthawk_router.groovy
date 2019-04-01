@@ -339,10 +339,16 @@ private parsegad(rororo) {
         sendEvent(name: "gad$i", value: "${linetmp[2]}", isStateChange: true, displayed: false)
         sendEvent(name: "gade$i", value: "${linetmp[1]}", isStateChange: true, displayed: false)
         sendEvent(name: "gadf$i", value: "${linetmp[3]}", isStateChange: true, displayed: false)
-        if (linetmp[4] == "wired" && linetmp[7] == "Allow") {sendEvent(name: "gadd$i", value: "wiredok", isStateChange: true, displayed: false) }
-        if (linetmp[4] == "wireless" && linetmp[7] == "Allow") {sendEvent(name: "gadd$i", value: "wirelessok", isStateChange: true, displayed: false) }
-        if (linetmp[4] == "wired" && linetmp[7] != "Allow") {sendEvent(name: "gadd$i", value: "wirednok", isStateChange: true, displayed: false) }
-        if (linetmp[4] == "wireless" && linetmp[7] != "Allow") {sendEvent(name: "gadd$i", value: "wirelessnok", isStateChange: true, displayed: false) }
+
+        if (linetmp[4] == "wired" && linetmp[7] == "Allow") {
+            sendEvent(name: "gadd$i", value: "wiredok", isStateChange: true, displayed: false)
+        } else if (linetmp[4] == "wireless" && linetmp[7] == "Allow") {
+            sendEvent(name: "gadd$i", value: "wirelessok", isStateChange: true, displayed: false)
+        } else if (linetmp[4] == "wired" && linetmp[7] != "Allow") {
+            sendEvent(name: "gadd$i", value: "wirednok", isStateChange: true, displayed: false)
+        } else if (linetmp[4] == "wireless" && linetmp[7] != "Allow") {
+            sendEvent(name: "gadd$i", value: "wirelessnok", isStateChange: true, displayed: false)
+        }
     }
     //state.devl = devicelist
     //sendEvent(name: "gad", value: "$devicelist", isStateChange: true, displayed: false)
