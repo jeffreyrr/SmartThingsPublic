@@ -627,13 +627,11 @@ def GetAll() {
 }
 
 private getSOAPCommand(command) {
-    body = getSOAPBody(command)
-
     return """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <SOAP-ENV:Envelope xmlns:SOAPSDK1="http://www.w3.org/2001/XMLSchema" xmlns:SOAPSDK2="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAPSDK3="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
     <SOAP-ENV:Header>
     <SessionID>58DEE6006A88A967E89A</SessionID>
-    </SOAP-ENV:Header><SOAP-ENV:Body>$body</SOAP-ENV:Body></SOAP-ENV:Envelope>"""
+    </SOAP-ENV:Header><SOAP-ENV:Body>""" + getSOAPBody(command) + """</SOAP-ENV:Body></SOAP-ENV:Envelope>"""
 }
 
 private getSOAPBody(key) {
@@ -683,455 +681,89 @@ private getSOAPAction(key) {
 }
 
 private gwgetall() {
-    state.lastcmd = "gwgetall"
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("GetGuestAccessEnabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("GetGuestAccessEnabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
-
+    requestSOAPCommand("GetGuestAccessEnabled", "gwgetall")
     new physicalgraph.device.HubAction("delay 2000")
-
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Get5GGuestAccessEnabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Get5GGuestAccessEnabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Get5GGuestAccessEnabled")
 }
 
 private getattacheddev() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("GetAttachDevice"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("GetAttachDevice")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("GetAttachDevice")
 }
 
 private getstats() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("GetTrafficMeterStatistics"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("GetTrafficMeterStatistics")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("GetTrafficMeterStatistics")
 }
 
 private wifi2stat() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("GetInfo"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("GetInfo")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("GetInfo")
 }
 
 private wifi5stat() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Get5GInfo"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Get5GInfo")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Get5GInfo")
 }
 
 private wifi2enable() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("SetEnable"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("SetEnable"))
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("SetEnable")
 }
 
 private wifi5enable() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Set5GEnable"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Set5GEnable")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Set5GEnable")
 }
 
 
 private wifi2disable() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("SetDisable"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("SetDisable"))
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
-
+    requestSOAPCommand("SetDisable")
 }
 
 private wifi5disable() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPCommand("Set5GDisable"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: body: getSOAPCommand("Set5GDisable"))
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Set5GDisable")
 }
 
 private rebootoff() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Reboot"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Reboot")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Reboot")
 }
 
 private gwoff() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("SetGuestAccessDisabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("SetGuestAccessDisabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("SetGuestAccessDisabled")
 }
 
 private gwon() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("SetGuestAccessEnabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("SetGuestAccessEnabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("SetGuestAccessEnabled")
 }
 
 private gwget() {
-    state.lastcmd = "gwget"
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("GetGuestAccessEnabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("GetGuestAccessEnabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("GetGuestAccessEnabled", "gwget")
 }
 
 private gwinfo() {
-    state.lastcmd = "gwget"
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("GetGuestAccessNetworkInfo"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("GetGuestAccessNetworkInfo")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("GetGuestAccessNetworkInfo", "gwget")
 }
 
 private gwoff5() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Set5GGuestAccessDisabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Set5GGuestAccessDisabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Set5GGuestAccessDisabled")
 }
 
 private gwon5() {
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Set5GGuestAccessEnabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Set5GGuestAccessEnabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Set5GGuestAccessEnabled")
 }
 
 private gwget5() {
-    state.lastcmd = "gwget5"
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Get5GGuestAccessEnabled"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Get5GGuestAccessEnabled")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Get5GGuestAccessEnabled", "gwget5")
 }
 
 private gwinfo5() {
-    state.lastcmd = "gwget5"
-    def host = "$ip:$port"
-    def method = "POST"
-    def path = "/soap/server_sa/"
-
-    def headers = [:]
-    headers.put("HOST", "$host")
-    headers.put("SOAPAction", getSOAPAction("Get5GGuestAccessNetworkInfo"))
-    headers.put("content-type", "text/xml;charset=utf-8")
-
-    try {
-        def hubAction = new physicalgraph.device.HubAction(
-            method: method,
-            path: path,
-            headers: headers,
-            body: getSOAPCommand("Get5GGuestAccessNetworkInfo")
-        )
-        hubAction
-    } catch (Exception e) {
-        log.debug "Hit Exception $e on $hubAction"
-    }
+    requestSOAPCommand("Get5GGuestAccessNetworkInfo", "gwget5")
 }
 
 private authrouter() {
     def hubaction
-    def host = "$ip:$port"
-
     try {
         hubaction = new physicalgraph.device.HubSoapAction(
             path:    "/soap/server_sa/",
             urn:     'urn:NETGEAR-ROUTER:service:ParentalControl:1',
             action:  "Authenticate",
-            body:    ["NewPassword":"$password", "NewUsername":"$username" ],
-            headers: [Host:"$host", CONNECTION: "close"]
+            body:    ["NewPassword": "$password", "NewUsername": "$username" ],
+            headers: [Host: "$ip:$port", CONNECTION: "close"]
         )
     } catch (Exception e) {
         log.debug e
@@ -1142,15 +774,13 @@ private authrouter() {
 private configStarted() {
     state.lastcmd = "configStarted"
     def hubaction
-    def host = "$ip:$port"
-
     try {
         hubaction = new physicalgraph.device.HubSoapAction(
             path:    "/soap/server_sa/",
             urn:     'urn:NETGEAR-ROUTER:service:DeviceConfig:1',
             action:  "ConfigurationStarted",
             body:    ["NewSessionID":"58DEE6006A88A967E89A" ],
-            headers: [Host:"$host", CONNECTION: "keep-alive"]
+            headers: [Host: "$ip:$port", CONNECTION: "keep-alive"]
         )
     } catch (Exception e) {
         log.debug e
@@ -1161,15 +791,13 @@ private configStarted() {
 private configFinished() {
     state.lastcmd = "configFinished"
     def hubaction
-    def host = "$ip:$port"
-
     try {
         hubaction = new physicalgraph.device.HubSoapAction(
             path:    "/soap/server_sa/",
             urn:     'urn:NETGEAR-ROUTER:service:DeviceConfig:1',
             action:  "ConfigurationFinished",
             body:    ["NewStatus":"ChangesApplied" ],
-            headers: [Host:"$host", CONNECTION: "keep-alive"]
+            headers: [Host: "$ip:$port", CONNECTION: "keep-alive"]
         )
     } catch (Exception e) {
         log.debug e
@@ -1181,14 +809,37 @@ private delayAction(long time) {
     new physicalgraph.device.HubAction("delay $time")
 }
 
+private requestSOAPCommand(command, lastcmd = null) {
+    if (lastcmd) {
+        state.lastcmd = lastcmd
+    }
+
+    def headers = [:]
+    headers.put("HOST", "$ip:$port")
+    headers.put("SOAPAction", getSOAPAction(command))
+    headers.put("content-type", "text/xml;charset=utf-8")
+
+    try {
+        def hubAction = new physicalgraph.device.HubAction(
+            method: "POST",
+            path: "/soap/server_sa/",
+            headers: headers,
+            body: getSOAPCommand(command)
+        )
+        hubAction
+    } catch (Exception e) {
+        log.debug "Hit Exception $e on $hubAction"
+    }
+}
+
 private String convertIPtoHex(ipAddress) {
-    String hex = ipAddress.tokenize( '.' ).collect {  String.format( '%02x', it.toInteger() ) }.join()
+    String hex = ipAddress.tokenize('.').collect { String.format('%02x', it.toInteger()) }.join()
     //log.debug "IP address entered is $ipAddress and the converted hex code is $hex"
     return hex
 }
 
 private String convertPortToHex(port) {
-    String hexport = port.toString().format( '%04x', port.toInteger() )
+    String hexport = port.toString().format('%04x', port.toInteger())
     //log.debug hexport
     return hexport
 }
