@@ -70,30 +70,11 @@ metadata {
 
     // UI tile definitions
     tiles(scale: 2) {
-        standardTile("GuestWifi5Ghz","device.GuestWifi5Ghz", decoration: "flat", width: 2, height: 1, canChangeIcon: true){
-            state "on", label: 'GuestWifi5Ghz\n${name}', action: "GuestWirelessOff5", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "off", label: 'GuestWifi5Ghz\n${name}', action: "GuestWirelessOn5", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-            state "turningOn", label: 'GuestWifi5Ghz\n${name}', action: "GuestWirelessOff5", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "turningOff", label: 'GuestWifi5Ghz\n${name}', action: "GuestWirelessOn5", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-        }
-        standardTile("GuestWifi2Ghz","device.GuestWifi2Ghz", decoration: "flat", width: 2, height: 1){
-            state "on", label: 'GuestWifi2Ghz\n${name}', action: "GuestWirelessOff", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "off", label: 'GuestWifi2Ghz\n${name}', action: "GuestWirelessOn", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-            state "turningOn", label: 'GuestWifi2Ghz\n${name}', action: "GuestWirelessOff", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "turningOff", label: 'GuestWifi2Ghz\n${name}', action: "GuestWirelessOn", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-        }
-        standardTile("Wifi5Ghz","device.Wifi5Ghz", decoration: "flat", width: 2, height: 1, canChangeIcon: true){
-            state "on", label: 'Wifi5Ghz\n${name}', action: "WirelessOff5", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "off", label: 'Wifi5Ghz\n${name}', action: "WirelessOn5", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-            state "turningOn", label: 'Wifi5Ghz\n${name}', action: "WirelessOff5", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "turningOff", label: 'Wifi5Ghz\n${name}', action: "WirelessOn5", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-        }
-        standardTile("Wifi2Ghz","device.Wifi2Ghz", decoration: "flat", width: 2, height: 1){
-            state "on", label: 'Wifi2Ghz\n${name}', action: "WirelessOff", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "off", label: 'Wifi2Ghz\n${name}', action: "WirelessOn", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-            state "turningOn", label: 'Wifi2Ghz\n${name}', action: "WirelessOff", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
-            state "turningOff", label: 'Wifi2Ghz\n${name}', action: "WirelessOn", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
-        }
+        wifiTile("GuestWifi5Ghz", "device.GuestWifi5Ghz", "GuestWirelessOn5", "GuestWirelessOff5")
+        wifiTile("GuestWifi2Ghz", "device.GuestWifi2Ghz", "GuestWirelessOn", "GuestWirelessOff")
+        wifiTile("Wifi5Ghz", "device.Wifi5Ghz", "WirelessOn5", "WirelessOff5")
+        wifiTile("Wifi2Ghz", "device.Wifi2Ghz", "WirelessOn", "WirelessOff")
+
         standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat", width: 2, height: 1) {
             state "default", label:'Refresh All', action:"refresh.refresh", icon:"st.secondary.refresh"
         }
@@ -330,6 +311,19 @@ private deviceTile(deviceNumber) {
     }
     standardTile("gadf${deviceNumber}", "device.gadf${deviceNumber}", width: 1, height: 1) {
         state ("default", label:'${currentValue}')
+    }
+}
+private wifiTile(apName, apDevice, apOnAction, apOffAction) {
+    def apLabel = "${apName}\n${name}"
+    def apIcon = "st.Kids.kids15"
+    def backgroundOn = "#79b821"
+    def backgroundOff = "#ffffff"
+
+    standardTile(apName, apDevice, decoration: "flat", width: 2, height: 1, canChangeIcon: true){
+        state "on", label: apLabel, action: apOffAction, icon: apIcon, backgroundColor: backgroundOn, nextState: "turningOff"
+        state "off", label: apLabel, action: apOnAction, icon: apIcon, backgroundColor: backgroundOff, nextState: "turningOn"
+        state "turningOn", label: apLabel, action: apOffAction, icon: apIcon, backgroundColor: backgroundOn, nextState: "turningOff"
+        state "turningOff", label: apLabel, action: apOnAction, icon: apIcon, backgroundColor: backgroundOff, nextState: "turningOn"
     }
 }
 
