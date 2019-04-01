@@ -370,54 +370,54 @@ def off() {
 
 def WirelessOn5() {
     //log.debug "Executing 'GuestWirelessOn 5Ghz'"
-    return [authrouter(), delayAction(9000), configStarted(), delayAction(9000), wifi5enable(), delayAction(9000), configFinished(), delayAction(9000), wifi5stat()]
+    return [authrouter(), delay(9000), configStarted(), delay(9000), wifi5enable(), delay(9000), configFinished(), delay(9000), wifi5stat()]
 }
 
 def WirelessOff5() {
     //log.debug "Executing 'GuestWirelessOff 5Ghz'"
-    return [authrouter(), delayAction(9800), configStarted(), delayAction(9800), wifi5disable(), delayAction(9800), configFinished(), delayAction(9000), wifi5stat()]
+    return [authrouter(), delay(9800), configStarted(), delay(9800), wifi5disable(), delay(9800), configFinished(), delay(9000), wifi5stat()]
 }
 
 def WirelessOn() {
     //log.debug "Executing 'GuestWirelessOn 2Ghz'"
-    return [authrouter(), delayAction(9000), configStarted(), delayAction(9000), wifi2enable(), delayAction(9000), configFinished(), delayAction(9000), wifi2stat()]
+    return [authrouter(), delay(9000), configStarted(), delay(9000), wifi2enable(), delay(9000), configFinished(), delay(9000), wifi2stat()]
 }
 
 def WirelessOff() {
     //log.debug "Executing 'GuestWirelessOff 2Ghz'"
-    return [authrouter(), delayAction(9800), configStarted(), delayAction(9800), wifi2disable(), delayAction(9800), configFinished(), delayAction(9000), wifi2stat()]
+    return [authrouter(), delay(9800), configStarted(), delay(9800), wifi2disable(), delay(9800), configFinished(), delay(9000), wifi2stat()]
 }
 
 def GuestWirelessOn5() {
     //log.debug "Executing 'GuestWirelessOn 5Ghz'"
-    return [authrouter(), delayAction(9000), configStarted(), delayAction(9000), gwon5(), delayAction(9000), configFinished(), delayAction(9000), gwget5(), delayAction(9000), gwinfo5()]
+    return [authrouter(), delay(9000), configStarted(), delay(9000), gwon5(), delay(9000), configFinished(), delay(9000), gwget5(), delay(9000), gwinfo5()]
 }
 
 def GuestWirelessOff5() {
     //log.debug "Executing 'GuestWirelessOff 5Ghz'"
-    return [authrouter(), delayAction(9800), configStarted(), delayAction(9800), gwoff5(), delayAction(9800), configFinished(), delayAction(9000), gwget5()]
+    return [authrouter(), delay(9800), configStarted(), delay(9800), gwoff5(), delay(9800), configFinished(), delay(9000), gwget5()]
 }
 
 def GuestWirelessOn() {
     //log.debug "Executing 'GuestWirelessOn 2Ghz'"
-    return [authrouter(), delayAction(9000), configStarted(), delayAction(9000), gwon(), delayAction(9000), configFinished(), delayAction(9000), gwget(), delayAction(9000), gwinfo()]
+    return [authrouter(), delay(9000), configStarted(), delay(9000), gwon(), delay(9000), configFinished(), delay(9000), gwget(), delay(9000), gwinfo()]
 }
 
 def GuestWirelessOff() {
     //log.debug "Executing 'GuestWirelessOff 2Ghz'"
-    return [authrouter(), delayAction(9800), configStarted(), delayAction(9800), gwoff(), delayAction(9800), configFinished(), delayAction(9000), gwget()]
+    return [authrouter(), delay(9800), configStarted(), delay(9800), gwoff(), delay(9800), configFinished(), delay(9000), gwget()]
 }
 
 def GetAttached() {
-    return [authrouter(), delayAction(9800), getattacheddev()]
+    return [authrouter(), delay(9800), getattacheddev()]
 }
 
 def GetStats() {
-    return [authrouter(), delayAction(9800), getstats()]
+    return [authrouter(), delay(9800), getstats()]
 }
 
 def Reboot() {
-    return [authrouter(), delayAction(9800), configStarted(), delayAction(9800), rebootoff(), delayAction(9800), configFinished()]
+    return [authrouter(), delay(9800), configStarted(), delay(9800), rebootoff(), delay(9800), configFinished()]
 }
 
 def refresh() {
@@ -434,13 +434,13 @@ def refresh() {
     //return gwgetall()
     //return infoall
     //return GetAll()
-    return [authrouter(), delayAction(1000), gwget(), delayAction(1000), gwget5(), delayAction(1000), gwinfo(), delayAction(1000), gwinfo5(), delayAction(1000), gwinfo5(), delayAction(1000), wifi2stat(), delayAction(1000), wifi5stat(), delayAction(1000), getstats()]
+    return [authrouter(), delay(1000), gwget(), delay(1000), gwget5(), delay(1000), gwinfo(), delay(1000), gwinfo5(), delay(1000), gwinfo5(), delay(1000), wifi2stat(), delay(1000), wifi5stat(), delay(1000), getstats()]
 
 }
 
 def GetAll() {
     state.lastcmd = "getall"
-    return [authrouter(), delayAction(1000), gwget(), delayAction(1000), gwget5(), delayAction(1000), gwinfo(), delayAction(1000), gwinfo5(), delayAction(1000), wifi2stat(), delayAction(1000), wifi5stat()]
+    return [authrouter(), delay(1000), gwget(), delay(1000), gwget5(), delay(1000), gwinfo(), delay(1000), gwinfo5(), delay(1000), wifi2stat(), delay(1000), wifi5stat()]
 }
 
 private getSOAPCommand(command) {
@@ -622,7 +622,7 @@ private configFinished() {
     return hubaction
 }
 
-private delayAction(long time) {
+private delay(long time) {
     new physicalgraph.device.HubAction("delay $time")
 }
 
