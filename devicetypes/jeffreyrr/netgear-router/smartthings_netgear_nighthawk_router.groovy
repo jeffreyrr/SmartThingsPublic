@@ -94,8 +94,8 @@ metadata {
             state "turningOn", label: 'Wifi2Ghz\n${name}', action: "WirelessOff", icon: "st.Kids.kids15", backgroundColor: "#79b821", nextState: "turningOff"
             state "turningOff", label: 'Wifi2Ghz\n${name}', action: "WirelessOn", icon: "st.Kids.kids15", backgroundColor: "#ffffff", nextState: "turningOn"
         }
-        standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-            state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
+        standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat", width: 2, height: 1) {
+            state "default", label:'Refresh All', action:"refresh.refresh", icon:"st.secondary.refresh"
         }
         valueTile("5ghz", "device.5ghz", decoration: "flat", width: 2, height: 1) {
             state ("default", label:'${currentValue}')
@@ -109,11 +109,11 @@ metadata {
         valueTile("w2ghz", "device.w2ghz", decoration: "flat", width: 2, height: 1) {
             state ("default", label:'${currentValue}')
         }
-        standardTile( "refreshall", "device.power", decoration: "flat", width: 3, height: 1) {
-            state "default", label:'Get Traffic Graph', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
+        standardTile( "refreshall", "device.power", decoration: "flat", width: 2, height: 1) {
+            state "default", label:'Refresh Graph', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
         }
-        standardTile( "attached", "device.attached", decoration: "flat", width: 3, height: 1) {
-            state "default", label:'Get Attached Devices', action: "GetAttached", icon:"st.secondary.refresh", nextState: "default"
+        standardTile( "attached", "device.attached", decoration: "flat", width: 2, height: 1) {
+            state "default", label:'Refresh Devices', action: "GetAttached", icon:"st.secondary.refresh", nextState: "default"
             //state "default", label:'Get Attached Devices', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
         }
 
@@ -138,14 +138,22 @@ metadata {
         deviceTile(19)
         deviceTile(20)
 
-        standardTile( "reboot", "device.reboot", inactiveLabel: false, decoration: "flat", width: 2, height: 2, canChangeIcon: true) {
+        standardTile("reboot", "device.reboot", inactiveLabel: false, decoration: "flat", width: 2, height: 1, canChangeIcon: true) {
             state "enabled", label: 'Reboot', action: "Reboot", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#79b821"
             state "disabled", label: 'Reboot\n(disabled)', action: "", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#ffffff"
         }
 
-carouselTile("pieChart", "device.image", width: 6, height: 4) { }
+        carouselTile("trafficChart", "device.image", width: 6, height: 4) { }
+
         main "GuestWifi2Ghz"
-        details(["GuestWifi5Ghz","GuestWifi2Ghz","refresh","5ghz","2ghz","Wifi5Ghz","Wifi2Ghz","reboot","w5ghz","w2ghz","refreshall","attached","pieChart","gadd1","gad1","gade1","gadf1","gadd2","gad2","gade2","gadf2","gadd3","gad3","gade3","gadf3","gadd4","gad4","gade4","gadf4","gadd5","gad5","gade5","gadf5","gadd6","gad6","gade6","gadf6","gadd7","gad7","gade7","gadf7","gadd8","gad8","gade8","gadf8","gadd9","gad9","gade9","gadf9","gadd10","gad10","gade10","gadf10","gadd11","gad11","gade11","gadf11","gadd12","gad12","gade12","gadf12","gadd13","gad13","gade13","gadf13","gadd14","gad14","gade14","gadf14","gadd15","gad15","gade15","gadf15","gadd16","gad16","gade16","gadf16","gadd17","gad17","gade17","gadf17","gadd18","gad18","gade18","gadf18","gadd19","gad19","gade19","gadf19","gadd20","gad20","gade20","gadf20","gadd21","gad21","gade21","gadf21","gadd22","gad22","gade22","gadf22","gadd23","gad23","gade23","gadf23","gadd24","gad24","gade24","gadf24","gadd25","gad25","gade25","gadf25","gadd26","gad26","gade26","gadf26","gadd27","gad27","gade27","gadf27","gadd28","gad28","gade28","gadf28","gadd29","gad29","gade29","gadf29","gadd30","gad30","gade30","gadf30","gadd31","gad31","gade31","gadf31","gadd32","gad32","gade32","gadf32","gadd33","gad33","gade33","gadf33","gadd34","gad34","gade34","gadf34","gadd35","gad35","gade35","gadf35","gadd36","gad36","gade36","gadf36","gadd37","gad37","gade37","gadf37","gadd38","gad38","gade38","gadf38","gadd39","gad39","gade39","gadf39","gadd40","gad40","gade40","gadf40","gadd41","gad41","gade41","gadf41","gadd42","gad42","gade42","gadf42","gadd43","gad43","gade43","gadf43","gadd44","gad44","gade44","gadf44","gadd45","gad45","gade45","gadf45","gadd46","gad46","gade46","gadf46","gadd47","gad47","gade47","gadf47","gadd48","gad48","gade48","gadf48","gadd49","gad49","gade49","gadf49","gadd50","gad50","gade50","gadf50"])
+
+        details([
+            "GuestWifi5Ghz","5ghz","reboot","GuestWifi2Ghz","2ghz","refresh","Wifi5Ghz","w5ghz","refreshall","Wifi2Ghz","w2ghz","attached","trafficChart",
+            "gadd1","gad1","gade1","gadf1","gadd2","gad2","gade2","gadf2","gadd3","gad3","gade3","gadf3","gadd4","gad4","gade4","gadf4","gadd5","gad5","gade5","gadf5",
+            "gadd6","gad6","gade6","gadf6","gadd7","gad7","gade7","gadf7","gadd8","gad8","gade8","gadf8","gadd9","gad9","gade9","gadf9","gadd10","gad10","gade10","gadf10",
+            "gadd11","gad11","gade11","gadf11","gadd12","gad12","gade12","gadf12","gadd13","gad13","gade13","gadf13","gadd14","gad14","gade14","gadf14","gadd15","gad15","gade15","gadf15",
+            "gadd16","gad16","gade16","gadf16","gadd17","gad17","gade17","gadf17","gadd18","gad18","gade18","gadf18","gadd19","gad19","gade19","gadf19","gadd20","gad20","gade20","gadf20"
+        ])
 
     }
 }
