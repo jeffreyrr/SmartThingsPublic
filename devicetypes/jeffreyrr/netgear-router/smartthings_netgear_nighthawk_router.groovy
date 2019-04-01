@@ -480,7 +480,7 @@ private getSOAPBody(key) {
         'Get5GGuestAccessNetworkInfo' : '<M1:Get5GGuestAccessNetworkInfo xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:Get5GGuestAccessNetworkInfo>',
     ]
     return commandBodyList[key]
-)
+}
 
 private getSOAPAction(key) {
     def actionList = [
