@@ -90,10 +90,10 @@ metadata {
         valueTile("w2ghz", "device.w2ghz", decoration: "flat", width: 2, height: 1) {
             state ("default", label:'${currentValue}')
         }
-        standardTile( "refreshall", "device.power", decoration: "flat", width: 2, height: 1) {
-            state "default", label:'Refresh Graph', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
+        valueTile("connected", "device.connected", decoration: "flat", width: 2, height: 1) {
+            state ("connected", label:'${currentValue} Devices')
         }
-        standardTile( "attached", "device.attached", decoration: "flat", width: 2, height: 1) {
+        standardTile("attached", "device.attached", decoration: "flat", width: 2, height: 1) {
             state "default", label:'Refresh Devices', action: "GetAttached", icon:"st.secondary.refresh", nextState: "default"
             //state "default", label:'Get Attached Devices', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
         }
@@ -126,10 +126,10 @@ metadata {
 
         carouselTile("trafficChart", "device.image", width: 6, height: 4) { }
 
-        main "GuestWifi2Ghz"
+        main "connected"
 
         details([
-            "GuestWifi5Ghz","5ghz","reboot","GuestWifi2Ghz","2ghz","refresh","Wifi5Ghz","w5ghz","refreshall","Wifi2Ghz","w2ghz","attached","trafficChart",
+            "Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","connected","GuestWifi5Ghz","5ghz","refresh","GuestWifi2Ghz","2ghz","attached","trafficChart",
             "gadd1","gad1","gade1","gadf1","gadd2","gad2","gade2","gadf2","gadd3","gad3","gade3","gadf3","gadd4","gad4","gade4","gadf4","gadd5","gad5","gade5","gadf5",
             "gadd6","gad6","gade6","gadf6","gadd7","gad7","gade7","gadf7","gadd8","gad8","gade8","gadf8","gadd9","gad9","gade9","gadf9","gadd10","gad10","gade10","gadf10",
             "gadd11","gad11","gade11","gadf11","gadd12","gad12","gade12","gadf12","gadd13","gad13","gade13","gadf13","gadd14","gad14","gade14","gadf14","gadd15","gad15","gade15","gadf15",
@@ -190,8 +190,11 @@ def parse(String description) {
 }
 
 private parseAndPublishDeviceState(device, stateText) {
-    def stateValue = (stateText == "1" ? "on" : "off")
-    sendEvent(name: device, value: stateValue, isStateChange: true, displayed: false)
+    if (stateText == "1") {
+        sendEvent(name: device, value: "on", isStateChange: true, displayed: false)
+    } else if (stateText == "0") {
+        sendEvent(name: device, value: "off", isStateChange: true, displayed: false)
+    }
 }
 
 private parseAndPublishDeviceSSID(device, ssidText, deviceStateName) {
@@ -334,6 +337,9 @@ private parsegad(rororo) {
     //def devicelist
     //def tmpdev
     devlines = rororo.split('@')
+
+    sendEvent(name: "connected", value: devlines.length, isStateChange: true, displayed: false)
+
     //devicelist="Name\tIPADDR\tMACADDR\tConnected\tAccess\n"
     for (int i = 1; i < devlines.length; i++){
         def linetmp = []
