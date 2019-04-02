@@ -121,7 +121,7 @@ metadata {
 
         standardTile("reboot", "device.reboot", inactiveLabel: false, decoration: "flat", width: 2, height: 1, canChangeIcon: true) {
             state "enabled", label: 'Reboot', action: "Reboot", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#79b821"
-            state "disabled", label: 'Reboot\n(disabled)', action: "", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#ffffff"
+            state "disabled", label: 'Disabled', action: "", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#ffffff"
         }
 
         carouselTile("trafficChart", "device.image", width: 6, height: 4) { }
@@ -179,10 +179,10 @@ def parse(String description) {
     parseAndPublishDeviceState("Wifi2Ghz", xmlt.'*'.'m:GetInfoResponse'.NewEnable.text())
     parseAndPublishDeviceState("Wifi5Ghz", xmlt.'*'.'m:Get5GInfoResponse'.NewEnable.text())
 
-    parseAndPublichDeviceSSID("w5ghz", xmlt.'*'.'m:Get5GInfoResponse'.NewSSID.text())
-    parseAndPublichDeviceSSID("w2ghz", xmlt.'*'.'m:GetInfoResponse'.NewSSID.text())
-    parseAndPublichDeviceSSID("5ghz", xmlt.'*'.'m:Get5GGuestAccessNetworkInfoResponse'.NewSSID.text())
-    parseAndPublichDeviceSSID("2ghz", xmlt.'*'.'m:GetGuestAccessNetworkInfoResponse'.NewSSID.text())
+    parseAndPublishDeviceSSID("w5ghz", xmlt.'*'.'m:Get5GInfoResponse'.NewSSID.text(), "wssid5")
+    parseAndPublishDeviceSSID("w2ghz", xmlt.'*'.'m:GetInfoResponse'.NewSSID.text(), "wssid2")
+    parseAndPublishDeviceSSID("5ghz", xmlt.'*'.'m:Get5GGuestAccessNetworkInfoResponse'.NewSSID.text(), "ssid5")
+    parseAndPublishDeviceSSID("2ghz", xmlt.'*'.'m:GetGuestAccessNetworkInfoResponse'.NewSSID.text(), "ssid2")
 
     processNewAttachedDevice(xmlt)
 
@@ -194,9 +194,11 @@ private parseAndPublishDeviceState(device, stateText) {
     sendEvent(name: device, value: stateValue, isStateChange: true, displayed: false)
 }
 
-private parseAndPublichDeviceSSID(device, ssidText) {
+private parseAndPublishDeviceSSID(device, ssidText, deviceStateName) {
     if (ssidText != null && ssidText != "") {
-        sendEvent(name: device, value: ssidText, isStateChange: true, displayed: false)
+        state."${deviceStateName}" = ssidText
+        sendEvent(name: device, value: state."${deviceStateName}", isStateChange: true, displayed: false)
+        log.debug "SSID change: $device -> " + state."${deviceStateName}"
     }
 }
 
@@ -442,8 +444,7 @@ def refresh() {
     //return gwgetall()
     //return infoall
     //return GetAll()
-    return [authrouter(), delay(1000), gwget(), delay(1000), gwget5(), delay(1000), gwinfo(), delay(1000), gwinfo5(), delay(1000), gwinfo5(), delay(1000), wifi2stat(), delay(1000), wifi5stat(), delay(1000), getstats()]
-
+    return [authrouter(), delay(1000), gwget(), delay(1000), gwget5(), delay(1000), gwinfo(), delay(1000), gwinfo5(), delay(1000), wifi2stat(), delay(1000), wifi5stat(), delay(1000), getstats()]
 }
 
 def GetAll() {
@@ -507,7 +508,7 @@ private getSOAPAction(key) {
 
 private gwgetall() {
     requestSOAPCommand("GetGuestAccessEnabled", "gwgetall")
-    new physicalgraph.device.HubAction("delay 2000")
+    delay(2000)
     requestSOAPCommand("Get5GGuestAccessEnabled")
 }
 
