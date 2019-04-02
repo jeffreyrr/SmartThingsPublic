@@ -16,6 +16,8 @@
  *
  */
 
+def max_devices = 25
+
 metadata {
     definition (name: "Netgear Nighthawk Router", namespace: "jeffreyrr", author: "Jeffrey Rogiers") {
         capability "Switch"
@@ -98,26 +100,10 @@ metadata {
             //state "default", label:'Get Attached Devices', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
         }
 
-        deviceTile(1)
-        deviceTile(2)
-        deviceTile(3)
-        deviceTile(4)
-        deviceTile(5)
-        deviceTile(6)
-        deviceTile(7)
-        deviceTile(8)
-        deviceTile(9)
-        deviceTile(10)
-        deviceTile(11)
-        deviceTile(12)
-        deviceTile(13)
-        deviceTile(14)
-        deviceTile(15)
-        deviceTile(16)
-        deviceTile(17)
-        deviceTile(18)
-        deviceTile(19)
-        deviceTile(20)
+        def devicesRange = 1..max_devices
+        for (n in devicesRange) {
+            deviceTile(n)
+        }
 
         standardTile("reboot", "device.reboot", inactiveLabel: false, decoration: "flat", width: 2, height: 1, canChangeIcon: true) {
             state "enabled", label: 'Reboot', action: "Reboot", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#79b821"
@@ -128,14 +114,14 @@ metadata {
 
         main "connected"
 
-        details([
-            "Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","connected","GuestWifi5Ghz","5ghz","refresh","GuestWifi2Ghz","2ghz","attached","trafficChart",
-            "gadd1","gad1","gade1","gadf1","gadd2","gad2","gade2","gadf2","gadd3","gad3","gade3","gadf3","gadd4","gad4","gade4","gadf4","gadd5","gad5","gade5","gadf5",
-            "gadd6","gad6","gade6","gadf6","gadd7","gad7","gade7","gadf7","gadd8","gad8","gade8","gadf8","gadd9","gad9","gade9","gadf9","gadd10","gad10","gade10","gadf10",
-            "gadd11","gad11","gade11","gadf11","gadd12","gad12","gade12","gadf12","gadd13","gad13","gade13","gadf13","gadd14","gad14","gade14","gadf14","gadd15","gad15","gade15","gadf15",
-            "gadd16","gad16","gade16","gadf16","gadd17","gad17","gade17","gadf17","gadd18","gad18","gade18","gadf18","gadd19","gad19","gade19","gadf19","gadd20","gad20","gade20","gadf20"
-        ])
-
+        def tilesList = ["Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","connected","GuestWifi5Ghz","5ghz","refresh","GuestWifi2Ghz","2ghz","attached","trafficChart"]
+        for (n in devicesRange) {
+            tilesList.add("gadd${n}")
+            tilesList.add("gad${n}")
+            tilesList.add("gade${n}")
+            tilesList.add("gadf${n}")
+        }
+        details(tilesList)
     }
 }
 
@@ -341,7 +327,7 @@ private parsegad(rororo) {
     sendEvent(name: "connected", value: devlines.length, isStateChange: true, displayed: false)
 
     //devicelist="Name\tIPADDR\tMACADDR\tConnected\tAccess\n"
-    for (int i = 1; i < devlines.length; i++){
+    for (int i = 1; i < devlines.length && i < max_devices; i++){
         def linetmp = []
         linetmp = devlines[i].split(';')
         //devicelist=devicelist + linetmp[2] + "\t" + linetmp[1] + "\t" + linetmp[3] + "\t" + linetmp[4] + "\t" + linetmp[7] + "\n"
