@@ -38,6 +38,7 @@ metadata {
         attribute "GuestWifi5Ghz", "string"
         attribute "w2ghz", "string"
         attribute "GuestWifi2Ghz", "string"
+        attribute "attached", "string"
 
         command "WirelessOn"
         command "WirelessOff"
@@ -322,7 +323,7 @@ private parsegad(rororo) {
     //def tmpdev
     devlines = rororo.split('@')
 
-    sendEvent(name: "attached", value: devlines.length, isStateChange: true, displayed: false)
+    sendEvent(name: "attached", value: devlines.length-1, isStateChange: true, displayed: false)
 
     //devicelist="Name\tIPADDR\tMACADDR\tConnected\tAccess\n"
     for (int i = 1; i < devlines.length && i <= max_devices; i++){
