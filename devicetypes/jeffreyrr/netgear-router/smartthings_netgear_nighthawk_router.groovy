@@ -112,7 +112,7 @@ metadata {
 
         main "attached"
 
-        def tilesList = ["Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","refreshGraph","GuestWifi5Ghz","5ghz","refresh","GuestWifi2Ghz","2ghz","attached","trafficChart"]
+        def tilesList = ["Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","refresh","GuestWifi5Ghz","5ghz","refreshGraph","GuestWifi2Ghz","2ghz","attached","trafficChart"]
         for (n in devicesRange) {
             tilesList.add("gadd${n}")
             tilesList.add("gad${n}")
