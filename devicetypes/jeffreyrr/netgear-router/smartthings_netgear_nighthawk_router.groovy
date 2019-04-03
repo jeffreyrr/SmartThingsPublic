@@ -16,7 +16,7 @@
  *
  */
 
-def max_devices = 25
+def max_devices = 20
 
 metadata {
     definition (name: "Netgear Nighthawk Router", namespace: "jeffreyrr", author: "Jeffrey Rogiers") {
@@ -77,27 +77,30 @@ metadata {
         wifiTile("Wifi5Ghz", "device.Wifi5Ghz", "WirelessOn5", "WirelessOff5")
         wifiTile("Wifi2Ghz", "device.Wifi2Ghz", "WirelessOn", "WirelessOff")
 
-        standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat", width: 2, height: 1) {
+        valueTile("5ghz", "device.5ghz", decoration: "flat", width: 4, height: 1) {
+            state ("default", label:'${currentValue}')
+        }
+        valueTile("2ghz", "device.2ghz", decoration: "flat", width: 4, height: 1) {
+            state ("default", label:'${currentValue}')
+        }
+        valueTile("w5ghz", "device.w5ghz", decoration: "flat", width: 4, height: 1) {
+            state ("default", label:'${currentValue}')
+        }
+        valueTile("w2ghz", "device.w2ghz", decoration: "flat", width: 4, height: 1) {
+            state ("default", label:'${currentValue}')
+        }
+        standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat", width: 1, height: 1) {
             state "default", label:'Refresh All', action:"refresh.refresh", icon:"st.secondary.refresh"
         }
-        valueTile("5ghz", "device.5ghz", decoration: "flat", width: 2, height: 1) {
-            state ("default", label:'${currentValue}')
+        standardTile("attached", "device.attached", decoration: "flat", width: 1, height: 1) {
+            state "default", label:'${currentValue} Devices', action: "GetAttached", icon:"st.secondary.refresh", nextState: "default"
         }
-        valueTile("2ghz", "device.2ghz", decoration: "flat", width: 2, height: 1) {
-            state ("default", label:'${currentValue}')
+        standardTile( "refreshGraph", "device.power", decoration: "flat", width: 1, height: 1) {
+            state "default", label:'Refresh Graph', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
         }
-        valueTile("w5ghz", "device.w5ghz", decoration: "flat", width: 2, height: 1) {
-            state ("default", label:'${currentValue}')
-        }
-        valueTile("w2ghz", "device.w2ghz", decoration: "flat", width: 2, height: 1) {
-            state ("default", label:'${currentValue}')
-        }
-        valueTile("connected", "device.connected", decoration: "flat", width: 2, height: 1) {
-            state ("connected", label:'${currentValue} Devices')
-        }
-        standardTile("attached", "device.attached", decoration: "flat", width: 2, height: 1) {
-            state "default", label:'Refresh Devices', action: "GetAttached", icon:"st.secondary.refresh", nextState: "default"
-            //state "default", label:'Get Attached Devices', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
+        standardTile("reboot", "device.reboot", inactiveLabel: false, decoration: "flat", width: 1, height: 1, canChangeIcon: true) {
+            state "enabled", label: 'Reboot', action: "Reboot", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#79b821"
+            state "disabled", label: 'Disabled', action: "", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#ffffff"
         }
 
         def devicesRange = 1..max_devices
@@ -105,16 +108,11 @@ metadata {
             deviceTile(n)
         }
 
-        standardTile("reboot", "device.reboot", inactiveLabel: false, decoration: "flat", width: 2, height: 1, canChangeIcon: true) {
-            state "enabled", label: 'Reboot', action: "Reboot", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#79b821"
-            state "disabled", label: 'Disabled', action: "", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#ffffff"
-        }
-
         carouselTile("trafficChart", "device.image", width: 6, height: 4) { }
 
-        main "connected"
+        main "attached"
 
-        def tilesList = ["Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","connected","GuestWifi5Ghz","5ghz","refresh","GuestWifi2Ghz","2ghz","attached","trafficChart"]
+        def tilesList = ["Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","refreshGraph","GuestWifi5Ghz","5ghz","refresh","GuestWifi2Ghz","2ghz","attached","trafficChart"]
         for (n in devicesRange) {
             tilesList.add("gadd${n}")
             tilesList.add("gad${n}")
@@ -187,7 +185,6 @@ private parseAndPublishDeviceSSID(device, ssidText, deviceStateName) {
     if (ssidText != null && ssidText != "") {
         state."${deviceStateName}" = ssidText
         sendEvent(name: device, value: state."${deviceStateName}", isStateChange: true, displayed: false)
-        log.debug "SSID change: $device -> " + state."${deviceStateName}"
     }
 }
 
@@ -294,27 +291,28 @@ private deviceTile(deviceNumber) {
         state ("wirednok", label:'', icon: "st.Electronics.electronics6", backgroundColor: "#ff0000")
         state ("wirelessnok", label:'', icon: "st.Entertainment.entertainment15", backgroundColor: "#ff0000")
     }
-    standardTile("gad${deviceNumber}", "device.gad${deviceNumber}", width: 2, height: 1) {
+    standardTile("gad${deviceNumber}", "device.gad${deviceNumber}", width: 3, height: 1) {
         state ("default", label:'${currentValue}')
     }
-    standardTile("gade${deviceNumber}", "device.gade${deviceNumber}", width: 2, height: 1) {
+    standardTile("gade${deviceNumber}", "device.gade${deviceNumber}", width: 1, height: 1) {
         state ("default", label:'${currentValue}')
     }
     standardTile("gadf${deviceNumber}", "device.gadf${deviceNumber}", width: 1, height: 1) {
         state ("default", label:'${currentValue}')
     }
 }
+
 private wifiTile(apName, apDevice, apOnAction, apOffAction) {
-    def apLabel = "${apName}\n${name}"
-    def apIcon = "st.Kids.kids15"
+    def labelOn = "ON"
+    def labelOff = "OFF"
     def backgroundOn = "#79b821"
     def backgroundOff = "#ffffff"
 
-    standardTile(apName, apDevice, decoration: "flat", width: 2, height: 1, canChangeIcon: true){
-        state "on", label: apLabel, action: apOffAction, icon: apIcon, backgroundColor: backgroundOn, nextState: "turningOff"
-        state "off", label: apLabel, action: apOnAction, icon: apIcon, backgroundColor: backgroundOff, nextState: "turningOn"
-        state "turningOn", label: apLabel, action: apOffAction, icon: apIcon, backgroundColor: backgroundOn, nextState: "turningOff"
-        state "turningOff", label: apLabel, action: apOnAction, icon: apIcon, backgroundColor: backgroundOff, nextState: "turningOn"
+    standardTile(apName, apDevice, decoration: "flat", width: 1, height: 1, canChangeIcon: true){
+        state "off", label: labelOff, action: apOnAction, backgroundColor: backgroundOff, nextState: "turningOn"
+        state "on", label: labelOn, action: apOffAction, backgroundColor: backgroundOn, nextState: "turningOff"
+        state "turningOn", label: labelOn, action: apOffAction, backgroundColor: backgroundOn, nextState: "turningOff"
+        state "turningOff", label: labelOff, action: apOnAction, backgroundColor: backgroundOff, nextState: "turningOn"
     }
 }
 
@@ -324,10 +322,10 @@ private parsegad(rororo) {
     //def tmpdev
     devlines = rororo.split('@')
 
-    sendEvent(name: "connected", value: devlines.length, isStateChange: true, displayed: false)
+    sendEvent(name: "attached", value: devlines.length, isStateChange: true, displayed: false)
 
     //devicelist="Name\tIPADDR\tMACADDR\tConnected\tAccess\n"
-    for (int i = 1; i < devlines.length && i < max_devices; i++){
+    for (int i = 1; i < devlines.length && i <= max_devices; i++){
         def linetmp = []
         linetmp = devlines[i].split(';')
         //devicelist=devicelist + linetmp[2] + "\t" + linetmp[1] + "\t" + linetmp[3] + "\t" + linetmp[4] + "\t" + linetmp[7] + "\n"
