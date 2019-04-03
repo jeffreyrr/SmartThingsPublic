@@ -118,7 +118,6 @@ metadata {
             tilesList.add("gadd${n}")
             tilesList.add("gad${n}")
             tilesList.add("gade${n}")
-            tilesList.add("gadf${n}")
         }
         details(tilesList)
     }
@@ -295,10 +294,7 @@ private deviceTile(deviceNumber) {
     standardTile("gad${deviceNumber}", "device.gad${deviceNumber}", width: 3, height: 1) {
         state ("default", label:'${currentValue}')
     }
-    standardTile("gade${deviceNumber}", "device.gade${deviceNumber}", width: 1, height: 1) {
-        state ("default", label:'${currentValue}')
-    }
-    standardTile("gadf${deviceNumber}", "device.gadf${deviceNumber}", width: 1, height: 1) {
+    standardTile("gade${deviceNumber}", "device.gade${deviceNumber}", width: 2, height: 1) {
         state ("default", label:'${currentValue}')
     }
 }
@@ -325,15 +321,13 @@ private parsegad(rororo) {
 
     sendEvent(name: "attached", value: devlines.length-1, isStateChange: true, displayed: false)
 
-    //devicelist="Name\tIPADDR\tMACADDR\tConnected\tAccess\n"
-    for (int i = 1; i < devlines.length && i <= max_devices; i++){
+    for (int i = 1; i < devlines.length; i++){
         def linetmp = []
         linetmp = devlines[i].split(';')
-        //devicelist=devicelist + linetmp[2] + "\t" + linetmp[1] + "\t" + linetmp[3] + "\t" + linetmp[4] + "\t" + linetmp[7] + "\n"
-        //tmpdev=linetmp[2] + "\t" + linetmp[1] + "\t" + linetmp[3] + "\n"
-        sendEvent(name: "gad$i", value: "${linetmp[2]}", isStateChange: true, displayed: false)
-        sendEvent(name: "gade$i", value: "${linetmp[1]}", isStateChange: true, displayed: false)
-        sendEvent(name: "gadf$i", value: "${linetmp[3]}", isStateChange: true, displayed: false)
+        // log.debug "Connection: ${linetmp[4]} / Name: ${linetmp[2]} / IP: ${linetmp[1]} / Mac: ${linetmp[3]}"
+
+        sendEvent(name: "gad${i}", value: "${linetmp[2]}", isStateChange: true, displayed: false)
+        sendEvent(name: "gade${i}", value: "${linetmp[1]}\n${linetmp[3]}", isStateChange: true, displayed: false)
 
         if (linetmp[4] == "wired" && linetmp[7] == "Allow") {
             sendEvent(name: "gadd$i", value: "wiredok", isStateChange: true, displayed: false)
