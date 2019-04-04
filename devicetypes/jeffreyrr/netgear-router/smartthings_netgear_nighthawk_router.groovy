@@ -32,11 +32,11 @@ metadata {
 
         attribute "w5ghz", "string"
         attribute "Wifi5Ghz", "string"
-        attribute "2ghz", "string"
+        attribute "w2ghz", "string"
         attribute "Wifi2Ghz", "string"
         attribute "5ghz", "string"
         attribute "GuestWifi5Ghz", "string"
-        attribute "w2ghz", "string"
+        attribute "2ghz", "string"
         attribute "GuestWifi2Ghz", "string"
         attribute "attached", "string"
 
