@@ -91,13 +91,13 @@ metadata {
             state ("default", label:'${currentValue}')
         }
         standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat", width: 1, height: 1) {
-            state "default", label:'Refresh All', action:"refresh.refresh", icon:"st.secondary.refresh"
+            state "default", label:'Refresh', action:"refresh.refresh", icon:"st.secondary.refresh-icon"
         }
         standardTile("attached", "device.attached", decoration: "flat", width: 1, height: 1) {
-            state "default", label:'${currentValue} Devices', action: "GetAttached", icon:"st.secondary.refresh", nextState: "default"
+            state "default", label:'${currentValue} Devices', icon: "st.custom.wuk.nt_fog", action: "GetAttached", nextState: "default"
         }
-        standardTile( "refreshGraph", "device.power", decoration: "flat", width: 1, height: 1) {
-            state "default", label:'Refresh Graph', action: "genGraph", icon:"st.secondary.refresh", nextState: "default"
+        standardTile("empty", "device.power", decoration: "flat", width: 1, height: 1) {
+            state "default", label:"", nextState: "default"
         }
         standardTile("reboot", "device.reboot", inactiveLabel: false, decoration: "flat", width: 1, height: 1, canChangeIcon: true) {
             state "enabled", label: 'Reboot', action: "Reboot", icon: "st.samsung.da.RC_ic_power", backgroundColor: "#79b821"
@@ -113,7 +113,7 @@ metadata {
 
         main "attached"
 
-        def tilesList = ["Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","refresh","GuestWifi5Ghz","5ghz","refreshGraph","GuestWifi2Ghz","2ghz","attached","trafficChart"]
+        def tilesList = ["Wifi5Ghz","w5ghz","reboot","Wifi2Ghz","w2ghz","refresh","GuestWifi5Ghz","5ghz","empty","GuestWifi2Ghz","2ghz","attached","trafficChart"]
         for (n in devicesRange) {
             tilesList.add("gadd${n}")
             tilesList.add("gad${n}")
@@ -319,6 +319,7 @@ private parsegad(rororo) {
     //def tmpdev
     devlines = rororo.split('@')
 
+    log.debug "Found ${devlines.length-1} Connected Devices"
     sendEvent(name: "attached", value: devlines.length-1, isStateChange: true, displayed: false)
 
     for (int i = 1; i < devlines.length; i++){
@@ -429,7 +430,7 @@ def refresh() {
     //return gwgetall()
     //return infoall
     //return GetAll()
-    return [authrouter(), delay(1000), gwget(), delay(1000), gwget5(), delay(1000), gwinfo(), delay(1000), gwinfo5(), delay(1000), wifi2stat(), delay(1000), wifi5stat(), delay(1000), getstats()]
+    return [authrouter(), delay(1000), gwget(), delay(1000), gwget5(), delay(1000), gwinfo(), delay(1000), gwinfo5(), delay(1000), wifi2stat(), delay(1000), wifi5stat(), delay(1000), getstats(), delay(1000), getattacheddev()]
 }
 
 def GetAll() {
