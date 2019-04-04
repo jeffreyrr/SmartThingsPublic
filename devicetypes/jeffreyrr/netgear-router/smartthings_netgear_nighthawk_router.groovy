@@ -465,6 +465,9 @@ private getSOAPBody(key) {
         'Set5GGuestAccessDisabled' : '<M1:Set5GGuestAccessEnabled xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"><NewGuestAccessEnabled>0</NewGuestAccessEnabled></M1:Set5GGuestAccessEnabled>',
         'Set5GGuestAccessEnabled' : '<M1:Set5GGuestAccessEnabled2 xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"><NewGuestAccessEnabled>1</NewGuestAccessEnabled></M1:Set5GGuestAccessEnabled2>',
         'Get5GGuestAccessNetworkInfo' : '<M1:Get5GGuestAccessNetworkInfo xmlns:M1="urn:NETGEAR-ROUTER:service:WLANConfiguration:1"></M1:Get5GGuestAccessNetworkInfo>',
+        'GetRemoteManagementEnableStatus' : '<M1:GetRemoteManagementEnableStatus xmlns:M1="urn:NETGEAR-ROUTER:service:WANIPConnection:1"></M1:GetRemoteManagementEnableStatus>',
+        'SetRemoteManagementEnable' : '<M1:SetRemoteManagementEnable xmlns:M1="urn:NETGEAR-ROUTER:service:WANIPConnection:1"><NewEnable>1</NewEnable></M1:SetRemoteManagementEnable>',
+        'SetRemoteManagementDisabled' : '<M1:SetRemoteManagementEnable xmlns:M1="urn:NETGEAR-ROUTER:service:WANIPConnection:1"><NewEnable>0</NewEnable></M1:SetRemoteManagementEnable>',
     ]
     return commandBodyList[key]
 }
@@ -488,6 +491,9 @@ private getSOAPAction(key) {
         'Set5GGuestAccessDisabled' : 'urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Set5GGuestAccessEnabled',
         'Set5GGuestAccessEnabled' : 'urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Set5GGuestAccessEnabled2',
         'Get5GGuestAccessNetworkInfo' : 'urn:NETGEAR-ROUTER:service:WLANConfiguration:1#Get5GGuestAccessNetworkInfo',
+        'GetRemoteManagementEnableStatus' : 'urn:NETGEAR-ROUTER:service:WANIPConnection:1#GetRemoteManagementEnableStatus',
+        'SetRemoteManagementEnable' : 'urn:NETGEAR-ROUTER:service:WANIPConnection:1#SetRemoteManagementEnable',
+        'SetRemoteManagementDisabled' : 'urn:NETGEAR-ROUTER:service:WANIPConnection:1#SetRemoteManagementEnable',
     ]
     return actionList[key]
 }
@@ -533,6 +539,18 @@ private wifi5disable() {
 
 private rebootoff() {
     requestSOAPCommand("Reboot")
+}
+
+private remotestatus() {
+    requestSOAPCommand("GetRemoteManagementEnableStatus")
+}
+
+private remoteoff() {
+    requestSOAPCommand("SetRemoteManagementDisabled")
+}
+
+private remoteon() {
+    requestSOAPCommand("SetRemoteManagementEnable")
 }
 
 private gwoff() {
